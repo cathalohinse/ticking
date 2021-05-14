@@ -1,0 +1,43 @@
+{
+  "name": "ticking",
+  "version": "1.0.0",
+  "description": "An application where the user inputs the name and location of all pubs they've visited.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/bell": "^12.2.0",
+    "@hapi/boom": "^9.1.1",
+    "@hapi/cookie": "^11.0.2",
+    "@hapi/hapi": "^20.1.2",
+    "@hapi/inert": "^6.0.3",
+    "@hapi/joi": "^17.1.1",
+    "@hapi/vision": "^6.0.1",
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.25.0",
+    "cloudinary-core": "^2.11.3",
+    "dotenv": "^8.2.0",
+    "handlebars": "^4.7.7",
+    "html-entities": "^2.3.2",
+    "joi": "^17.4.0",
+    "lodash": "^4.17.21",
+    "mais-mongoose-seeder": "^1.0.7",
+    "mongoose": "^5.11.15",
+    "node": "^15.10.0",
+    "sanitize-html": "^2.3.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0",
+    "prettier": "^2.2.1"
+  },
+  "prettier": {
+    "printWidth": 120
+  }
+}
