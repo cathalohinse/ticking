@@ -20,14 +20,14 @@
       "location": "Quin",
       "latitude": 52.81749,
       "longitude": -8.86378,
-      "image": "tavern.jpg"
+      "image": "https://res.cloudinary.com/cathalohinse/image/upload/v1621082217/kf9foi8496whvzgqjvny.jpg"
     },
     {
       "name": "Grand Khaan",
       "location": "Ulaanbaatar",
       "latitude": 47.91379,
       "longitude": 106.90622,
-      "image": "grandkhaan.jpg"
+      "image": "https://res.cloudinary.com/cathalohinse/image/upload/v1616002230/owluu8mf11dlfrmv4761.jpg"
     }
   ],
   "categories": [
@@ -51,7 +51,7 @@
     "location": "Clooney",
     "latitude": 52.85703,
     "longitude": -8.85090,
-    "image": "henchy.jpg"
+    "image": "https://res.cloudinary.com/cathalohinse/image/upload/v1616002230/owluu8mf11dlfrmv4761.jpg"
   },
   "newCategory":
   {
