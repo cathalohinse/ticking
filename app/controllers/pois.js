@@ -5,6 +5,7 @@ const Category = require("../models/category");
 const ImageStore = require('../utils/image-store');
 const Joi = require('@hapi/joi');
 const sanitizeHtml = require("sanitize-html");
+const Image = require("../models/image");
 
 const Pois = {
 
@@ -38,7 +39,7 @@ const Pois = {
         location: Joi.string().required(),
         latitude: Joi.number().required(),
         longitude: Joi.number().required(),
-        image: Joi.string().required(),
+        //image: Joi.string().required(),
         category: Joi.string().required(),
       },
       options: {
@@ -72,7 +73,7 @@ const Pois = {
           location: sanitizeHtml(data.location),
           latitude: sanitizeHtml(data.latitude),
           longitude: sanitizeHtml(data.longitude),
-          image: sanitizeHtml(data.image),
+          //image: sanitizeHtml(data.image),
           submitter: user._id,
           category: category._id,
         });
