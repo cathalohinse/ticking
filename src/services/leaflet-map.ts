@@ -19,7 +19,27 @@ export interface MapConfig {
 export class LeafletMap {
     imap: Map;
     control: LayerControl;
-    overlays: LayersObject = {};
+
+    overlays = {
+        Wind : L.tileLayer('http://{s}.tile.openweathermap.org/map/wind/{z}/{x}/{y}.png?appid={apiKey}', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
+            apiKey: "822d307f66312c7cb5653a4bb93b886e",
+            opacity: 0.5
+        }),
+        Clouds : L.tileLayer('http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png?appid={apiKey}', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
+            apiKey: "822d307f66312c7cb5653a4bb93b886e",
+            opacity: 0.5
+        }),
+        Pressure : L.tileLayer('http://{s}.tile.openweathermap.org/map/pressure/{z}/{x}/{y}.png?appid={apiKey}', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>',
+            apiKey: "822d307f66312c7cb5653a4bb93b886e",
+            opacity: 0.5
+        })
+    }
 
     // https://leaflet-extras.github.io/leaflet-providers/preview/
 
