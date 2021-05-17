@@ -16,6 +16,11 @@ export const welcomeBar = [
 ];
 
 export const mainBar = [{
+  title: "Poi",
+  icon: "fas fa-hand-holding-usd fa-3x",
+  colour: "color:rgb(153, 196, 74)",
+  link: "/#/poi",
+}, {
   title: "POIs",
   icon: "fas fa-clipboard-list fa-3x",
   colour: "color:rgb(153, 196, 74)",
@@ -25,12 +30,7 @@ export const mainBar = [{
   icon: "fas fa-sliders-h fa-3x",
   colour: "color:rgb(153, 196, 74)",
   link: "/#/categories",
-},  {
-  title: "Poi",
-  icon: "fas fa-hand-holding-usd fa-3x",
-  colour: "color:rgb(153, 196, 74)",
-  link: "/#/poi",
-}, {
+},{
   title: "Logout",
   icon: "fas fa-sign-out-alt fa-3x",
   colour: "color:rgb(153, 196, 74)",
@@ -44,9 +44,6 @@ export const title = writable("");
 export const subTitle = writable("");
 
 export const user = writable({
-  firstName: "",
-  lastName: "",
   email: "",
-  password: "",
-  _id: ""
+  token: ""
 });

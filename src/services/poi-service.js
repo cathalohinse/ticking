@@ -8,6 +8,9 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
+    if (localStorage.donation) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.donation);
+    }
   }
 
   async getCategories() {
@@ -43,11 +46,28 @@ export class PoiService {
   async login(email, password) {
     try {
       const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {email, password});
-      user.set(response.data);
-      return response.status == 200;
+      if (response.data.success) {
+        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+        user.set({
+          email: email,
+          token: response.data.token
+        });
+        localStorage.donation = JSON.stringify(response.data.token);
+        return true;
+      }
+      return false;
     } catch (error) {
       return false;
     }
+  }
+
+  async logout() {
+    user.set({
+      email: "",
+      token: ""
+    });
+    axios.defaults.headers.common["Authorization"] = "";
+    localStorage.donation = null;
   }
 
   async poi(name, location, latitude, longitude, image, category, submitter) {

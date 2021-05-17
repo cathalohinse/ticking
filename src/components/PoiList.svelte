@@ -25,7 +25,7 @@
     map.showZoomControl();
     map.showLayerControl();
     //map.addMarker({lat: lat, lng: lng});
-    map.zoomTo({lat: 38.80376, lng: -0.05862});
+    map.zoomTo({lat: 30.00000, lng: 70.00000});
   });
 
 
