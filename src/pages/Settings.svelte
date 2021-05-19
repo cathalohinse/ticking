@@ -1,6 +1,6 @@
 <script>
   import CategoryForm from "../components/CategoryForm.svelte";
-  import UserList from "../components/UserList.svelte";
+  import UserForm from "../components/UserForm.svelte";
   import clancy from "/src/assets/clancy.jpg";
   import {navBar, mainBar, subTitle, title} from "../stores"
 
@@ -11,19 +11,17 @@
   });
 </script>
 
-<div class="uk-container uk-margin" uk-grid>
-  <div class="uk-width-auto@m">
-    <img width="300" src="{clancy}" alt="pub">
-  </div>
-  <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center">
-    <div class="uk-width-auto@m" style="background-color: #877EB4; color: black">
+
+<div class="uk-container uk-margin">
+  <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center" uk-grid>
+    <div class="uk-width-auto@m">
+      <img width="300" src="{clancy}" alt="pub">
+    </div>
+    <div class="uk-width-expand@m">
+      <UserForm/>
+    </div>
+    <div class="uk-width-expand@m">
       <CategoryForm/>
-
     </div>
-
-    <div class="uk-width-auto@m" style="background-color: #877EB4; color: black">
-    <UserList/>
-    </div>
-
   </div>
 </div>

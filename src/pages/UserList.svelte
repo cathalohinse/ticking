@@ -1,5 +1,6 @@
 <script>
     import {getContext, onMount} from 'svelte'
+    import grandkhaan from "/src/assets/grandkhaan.jpg";
 
     const poiService = getContext("PoiService");
     let userList = [];
@@ -14,6 +15,12 @@
 
 </script>
 
+<div class="uk-container uk-margin" uk-grid>
+    <div class="uk-width-auto@m">
+        <img width="300" src="{grandkhaan}" alt="pub">
+    </div>
+<div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center">
+    <div class="uk-margin uk-width-2xlarge uk-margin-auto uk-card uk-card-default uk-card-body uk-box-shadow-large" style="background-color: #877EB4; color: black">
 <h3 class="uk-heading-divider">
     User List </h3>
 <div class="uk-table uk-table-divider">
@@ -47,6 +54,7 @@
         {/if}
         </tbody>
     </table>
-
 </div>
-
+    </div>
+</div>
+</div>

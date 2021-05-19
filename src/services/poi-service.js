@@ -127,28 +127,10 @@ export class PoiService {
     }
   }
 
-
-  async deleteCategory(id) {
-    const response = await axios.post(this.baseUrl + "/api/categories", id);
-    console.log("Removing Category: " + id);
-    await category.remove();
-
-    //const done = todoItems[found];
-    //todoItems.splice(found, 1);
-    //todoItems = [...todoItems];
-    //doneItems.push(done);
-    //doneItems = [...doneItems];
+  async deleteCategory(category) {
+    const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
+    console.log("Removing Category: " + category);
+    return response.data;
   }
-
-  async getCategories() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/categories");
-      this.categoryList = response.data;
-      return this.categoryList;
-    } catch (error) {
-      return [];
-    }
-  }
-
 
 }
