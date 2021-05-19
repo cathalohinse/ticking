@@ -15,7 +15,7 @@ export const welcomeBar = [
   },
 ];
 
-export const mainBar = [{
+export let mainBar = [{
   title: "Poi",
   icon: "fas fa-hand-holding-usd fa-3x",
   colour: "color:rgb(153, 196, 74)",

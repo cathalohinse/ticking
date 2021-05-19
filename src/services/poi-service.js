@@ -8,8 +8,8 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    if (localStorage.donation) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.donation);
+    if (localStorage.poi) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
     }
   }
 
@@ -52,7 +52,7 @@ export class PoiService {
           email: email,
           token: response.data.token
         });
-        localStorage.donation = JSON.stringify(response.data.token);
+        localStorage.poi = JSON.stringify(response.data.token);
         return true;
       }
       return false;
@@ -67,7 +67,7 @@ export class PoiService {
       token: ""
     });
     axios.defaults.headers.common["Authorization"] = "";
-    localStorage.donation = null;
+    localStorage.poi = null;
   }
 
   async poi(name, location, latitude, longitude, image, category, submitter) {
@@ -108,26 +108,10 @@ export class PoiService {
     }
   }
 
-  async deleteCategory(id) {
-    const response = await axios.post(this.baseUrl + "/api/categories", id);
-    console.log("Removing Category: " + id);
-    await category.remove();
-
-    //const done = todoItems[found];
-    //todoItems.splice(found, 1);
-    //todoItems = [...todoItems];
-    //doneItems.push(done);
-    //doneItems = [...doneItems];
-  }
-
-  async getCategories() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/categories");
-      this.categoryList = response.data;
-      return this.categoryList;
-    } catch (error) {
-      return [];
-    }
+  async deleteCategory(category) {
+    const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
+    console.log("Removing Category: " + category);
+    return response.data;
   }
 
 }
