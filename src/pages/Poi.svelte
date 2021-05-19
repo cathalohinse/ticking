@@ -1,7 +1,7 @@
 <script>
     import hamilton from "/src/assets/hamilton.jpg";
     import {navBar, mainBar, subTitle, title} from "../stores"
-    import PoiForm from "../components/CreatePoi.svelte";
+    import PoiForm from "../components/PoiForm.svelte";
     import 'leaflet/dist/leaflet.css';
     import {onMount, getContext} from 'svelte'
     import {LeafletMap} from "../services/leaflet-map";
