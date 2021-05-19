@@ -10,6 +10,7 @@
   import Poi from "./pages/Poi.svelte";
   import Category from "./pages/CategoryList.svelte";
   import User from "./pages/UserList.svelte";
+  import Signup from "./pages/Signup.svelte"
 
   setContext("PoiService", new PoiService("http://laptop-s80vbeoh:4000"));
 
@@ -20,6 +21,7 @@
     "/pois": Pois,
     "/logout" : Main,
     "/poi": Poi,
+    "/signup": Signup,
     "/categories": Category,
     "/users": User,
   }

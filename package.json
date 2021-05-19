@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "leaflet": "^1.7.1",
+    "svelte-select": "^3.17.0",
     "svelte-spa-router": "^3.1.0"
   }
 }
