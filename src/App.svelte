@@ -8,6 +8,7 @@
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
   import Poi from "./pages/Poi.svelte";
+  import Signup from "./pages/Signup.svelte"
 
   setContext("PoiService", new PoiService("http://laptop-s80vbeoh:4000"));
 
@@ -18,6 +19,7 @@
     "/pois": Pois,
     "/logout" : Main,
     "/poi": Poi,
+    "/signup": Signup,
   }
 </script>
 

@@ -14,6 +14,7 @@
 
   let lat = "";
   let lng = "";
+  let category = "";
   let map;
   onMount(async () => {
     const mapConfig = {
@@ -65,16 +66,18 @@
     <tbody class="uk-text-left">
     {#if poiList}
       {#each poiList as poi}
+
         <tr>
           <td>{poi.name}</td>
           <td>{poi.location}</td>
           <td>{poi.latitude}, {poi.longitude}</td>
           <td><img src="{poi.image}" alt="Pub" width="200" height="200"></td>
-          <td>{poi.category.county}, {poi.category.province}</td>
+          <td>{poi.category}, {poi.category.province}</td>
           <td>{poi.submitter}</td>
           <td><i class="fas fa-trash fa-2x" style="color:#653DC2"></i></td>
           <td><i class="fas fa-recycle fa-2x" style="color:#653DC2"></i></td>
         </tr>
+
       {/each}
     {/if}
     </tbody>

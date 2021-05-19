@@ -1,71 +1,95 @@
 <script lang="ts">
-    import { onMount, getContext } from "svelte";
+    import {getContext, onMount} from 'svelte'
     import Coordinates from "./Coordinates.svelte";
+    import {user} from "../stores";
     const poiService = getContext("PoiService");
+    import { push } from "svelte-spa-router";
+    import Select from 'svelte-select';
+    import {each} from "svelte/internal";
 
-    export let lat = 0.0;
-    export let lng = 0.0;
+    let name = "";
+    let location = "";
+    let latitude = "";
+    let longitude = "";
+    let image = "";
+    let category = "";
+    let submitter = user;
+    let poiList = [];
     let categoryList = [];
-    let amount = 0;
-    let selectedMethod = 0;
-    let selectedCategory = 0;
-    let methods = ["Paypal", "Cash"]
     let errorMessage = "";
+    const categories = poiService.categoryList;
+    let items = [];
 
     onMount(async () => {
-        categoryList = await poiService.getCatgories()
+        poiList = await poiService.getPois();
+        categoryList = await poiService.getCategories();
     });
 
     async function poi() {
-        const success = await poiService.poi(amount, methods[selectedMethod], categoryList[selectedCategory])
+        let success = await poiService.poi(name, location, latitude, longitude, image, category, submitter)
         if (success) {
-
+            push("/poi");
         } else {
-            errorMessage = "Poi creation not completed - some error occurred";
+            errorMessage = "POI creation not completed - some error occurred";
         }
+    };
+
+    categories.forEach(category=>{
+        let categorySelection = JSON.stringify(category);
+        items.push(
+            {value: category.county + ", " + category.province, label: category.county + ", " + category.province}
+            );
+    });
+
+
+    let selectedValue = {value: 'Select Category', label: 'Select Category'};
+    function handleSelect(event) {
+        console.log('selected item', event.detail);
+        // .. do something here 🙂
     }
 
 </script>
 
+
+
 <form on:submit|preventDefault={poi} class="uk-form-stacked uk-text-left">
     <div class="uk-grid uk-grid-stack">
-        <div class="uk-width-1-2@m">
+        <div class="uk-width-1-1@m">
             <div class="uk-margin">
-                <label class="uk-form-label" for="form-stacked-text">Enter amount</label>
+                <label style="color: black" class="uk-form-label" for="form-stacked-text">Enter Name of Pub</label>
                 <div class="uk-form-controls">
-                    <input bind:value={amount} class="uk-input" id="form-stacked-text" type="number" name="amount" placeholder="Euros">
+                    <input bind:value={name} class="uk-input" id="form-stacked-text" type="text" name="name" placeholder="Name of Pub"/>
                 </div>
             </div>
             <div class="uk-margin">
-                <div class="uk-form-label">Payment </div>
+                <label style="color: black" class="uk-form-label" for="form-stacked-text">Enter Location of Pub</label>
                 <div class="uk-form-controls">
-                    <label><input bind:group={selectedMethod} value={0} class="uk-radio" type="radio" name="method"> {methods[0]} </label><br>
-                    <label><input bind:group={selectedMethod} value={1} class="uk-radio" type="radio" name="method"> {methods[1]} </label>
-                </div>
-            </div>
-        </div>
-        <div class=" uk-width-1-2@m">
-            <div class="uk-margin uk-text-left">
-                <div class="uk-form-label">Select Category </div>
-                <div class="uk-form-controls ">
-                    {#each categoryList as category, i}
-                        <label>
-                            <input bind:group={selectedCategory} value={i} class="uk-radio" type="radio" name="category" />
-                            {category.county}, {category.province}
-                        </label>
-                        <br>
-                    {/each}
+                    <input bind:value={location} class="uk-input" id="form-stacked-text" type="text" name="location" placeholder="Location of Pub"/>
                 </div>
             </div>
             <div class="uk-margin">
-                <button class="submit uk-button uk-button-primary uk-button-large uk-width-1-1" style="background-color: #653DC2">Submit</button>
-            </div>
-            {#if errorMessage}
-                <div class="uk-text-left uk-text-small">
-                    {errorMessage}
+                <label style="color: black" class="uk-form-label" for="form-stacked-text">Enter Coordinates (Latitude & Longitude) of Location of Pub</label>
+                <div class="uk-form-controls">
+                    <input bind:value={latitude} class="uk-input" id="form-stacked-text" type="text" name="latitude" placeholder="Latitude"/>
+                    <input bind:value={longitude} class="uk-input" id="form-stacked-text" type="text" name="longitude" placeholder="Longitude"/>
                 </div>
-            {/if}
+            </div>
+            <label style="color: black" class="uk-form-label" for="form-stacked-text">Select Category</label>
+            <Select {items} {selectedValue} on:select={handleSelect}></Select>
+            <div class="uk-margin">
+                <label style="color: black" class="uk-form-label" for="form-stacked-text">Upload an Image of the Pub</label>
+                <div class="uk-form-controls">
+                    <input bind:value={image} class="uk-input" id="form-stacked-text" type="file" name="image" placeholder="Image"/>
+                </div>
+            </div>
         </div>
     </div>
-    <Coordinates bind:lat={lat} bind:lng={lng}/>
+    <div class="uk-margin">
+        <button style="background-color: #653DC2" class="uk-button uk-button-primary uk-button-large uk-width-1-1">Submit</button>
+    </div>
+    {#if errorMessage}
+        <div class="uk-text-left uk-text-small">
+            {errorMessage}
+        </div>
+    {/if}
 </form>

@@ -8,8 +8,8 @@ export class PoiService {
 
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
-    if (localStorage.donation) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.donation);
+    if (localStorage.poi) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
     }
   }
 
@@ -52,7 +52,7 @@ export class PoiService {
           email: email,
           token: response.data.token
         });
-        localStorage.donation = JSON.stringify(response.data.token);
+        localStorage.poi = JSON.stringify(response.data.token);
         return true;
       }
       return false;
@@ -67,7 +67,7 @@ export class PoiService {
       token: ""
     });
     axios.defaults.headers.common["Authorization"] = "";
-    localStorage.donation = null;
+    localStorage.poi = null;
   }
 
   async poi(name, location, latitude, longitude, image, category, submitter) {
@@ -84,6 +84,23 @@ export class PoiService {
       this.poiList.push(poi);
       const response = await axios.post(this.baseUrl + "/api/pois/" + poi._id);
       return response.status == 200;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async signup(firstName, lastName, email, password) {
+    try {
+      const userDetails = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      };
+      const response = await axios.post(this.baseUrl + "/api/users", userDetails);
+      const newUser = await response.data;
+      user.set(newUser);
+      return true;
     } catch (error) {
       return false;
     }
