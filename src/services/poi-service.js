@@ -89,4 +89,45 @@ export class PoiService {
     }
   }
 
+  async createCategory(county, province) {
+    try {
+      const category = {
+        county: county,
+        province: province,
+      };
+      //this.categoryList.push(category);
+      //const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/" + category);
+      const response = await axios.post(this.baseUrl + "/api/categories", category);
+      const newCategory = await response.data;
+      user.set(newCategory);
+      return true;
+      //return view("/settings");
+      //return response.status == 200;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async deleteCategory(id) {
+    const response = await axios.post(this.baseUrl + "/api/categories", id);
+    console.log("Removing Category: " + id);
+    await category.remove();
+
+    //const done = todoItems[found];
+    //todoItems.splice(found, 1);
+    //todoItems = [...todoItems];
+    //doneItems.push(done);
+    //doneItems = [...doneItems];
+  }
+
+  async getCategories() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/categories");
+      this.categoryList = response.data;
+      return this.categoryList;
+    } catch (error) {
+      return [];
+    }
+  }
+
 }

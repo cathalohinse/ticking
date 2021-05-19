@@ -26,10 +26,10 @@ export const mainBar = [{
   colour: "color:rgb(153, 196, 74)",
   link: "/#/pois",
 }, {
-  title: "Categories",
+  title: "Settings",
   icon: "fas fa-sliders-h fa-3x",
   colour: "color:rgb(153, 196, 74)",
-  link: "/#/categories",
+  link: "/#/settings",
 },{
   title: "Logout",
   icon: "fas fa-sign-out-alt fa-3x",
