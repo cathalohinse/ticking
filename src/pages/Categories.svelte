@@ -1,5 +1,5 @@
 <script>
-  import PoiList from "../components/CategoryList.svelte";
+  import CategoryList from "../components/CategoryList.svelte";
   import UserList from "../components/UserList.svelte";
   import clancy from "/src/assets/clancy.jpg";
   import {navBar, mainBar, subTitle, title} from "../stores"
@@ -17,7 +17,7 @@
   </div>
   <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center">
     <div class="uk-width-auto@m" style="background-color: #877EB4; color: black">
-      <PoiList/>
+      <CategoryList/>
 
     </div>
 
