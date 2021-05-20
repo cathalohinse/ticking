@@ -2,13 +2,15 @@
   import CategoryForm from "../components/CategoryForm.svelte";
   import UserForm from "../components/UserForm.svelte";
   import clancy from "/src/assets/clancy.jpg";
-  import {navBar, mainBar, subTitle, title} from "../stores"
+  import {navBar, mainBar, subTitle, title, user} from "../stores"
 
   title.set("Poi Services Inc.");
-  subTitle.set("All Current Categories");
+  subTitle.set("Settings");
   navBar.set({
     bar: mainBar
   });
+  //let email = $user.email;
+  //user.set(user);
 </script>
 
 

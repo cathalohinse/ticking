@@ -4,7 +4,7 @@
 
     let firstName = "";
     let lastName = "";
-    let email = ""
+    let email = "";
     let password = "";
     let errorMessage = "";
 

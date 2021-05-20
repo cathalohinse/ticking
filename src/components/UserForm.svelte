@@ -2,32 +2,35 @@
     import {getContext, onMount} from 'svelte'
     //import { PoiService } from "../services/poi-service"
     import {push} from "svelte-spa-router"
-    import {title, subTitle, user} from "../stores.js"
+    import {title, subTitle, user, navBar, mainBar} from "../stores"
+
+
+
+
+    user.set({
+    email: $user.email,
+    token: $user.token});
 
     const poiService = getContext("PoiService");
     let userList = [];
     let categoryList = [];
 
-    let firstName;
-    let lastName;
-    let email;
-    let password;
+    let firstName = user.firstName;
+    let lastName = $user.lastName;
+    let email = $user.email;
+    let password = $user.password;
     let errorMessage = "";
     let message = "";
     //let user;
 
-    onMount(async () => {
-        userList = await poiService.getUsers();
-        categoryList = await poiService.getCategories();
-    });
 
-    async function createUser() {
-        let success = await poiService.createCategory(firstName)
+
+    async function save() {
+        let success = await poiService.updateSettings(firstName, lastName, email, password, $user._id)
         if (success) {
-            push("/categories");
-            message = "This function is only a filler";
+            message = "Settings updated";
         } else {
-            errorMessage = "Error Creating Category";
+            message = "Error Trying to save settings";
         }
     }
 
@@ -40,25 +43,32 @@
     <div style="background-color: #877EB4" class="uk-card uk-card-default uk-width-xlarge uk-card-body uk-box-shadow-large">
         <h3 class="uk-card-title uk-text-center">Update User Settings:</h3>
 
-        <form >
+        <form on:submit|preventDefault={save}>
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
-                    <input class="uk-input uk-form-large" type="text" name="firstName" placeholder="{$user.firstName}">
+                    <span class="uk-form-icon" uk-icon="icon: user"></span> <input bind:value={firstName}
+                                                                                   class="uk-input uk-form-large" type="text"
+                                                                                   name="firstName">
                 </div>
             </div>
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
-                    <input class="uk-input uk-form-large" type="text" name="lastName" placeholder="{$user.lastName}">
+                    <span class="uk-form-icon" uk-icon="icon: user"></span> <input bind:value={lastName}
+                                                                                   class="uk-input uk-form-large" type="text"
+                                                                                   name="lastName">
                 </div>
             </div>
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
-                    <input class="uk-input uk-form-large" type="email" name="email" placeholder="{$user.email}">
+                    <span class="uk-form-icon" uk-icon="icon: mail"></span> <input bind:value={email} class="uk-input uk-form-large"
+                                                                                   type="text" name="email">
                 </div>
             </div>
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
-                    <input class="uk-input uk-form-large" type="password" name="password" placeholder="{$user.password}">
+                    <span class="uk-form-icon" uk-icon="icon: lock"></span> <input bind:value={password}
+                                                                                   class="uk-input uk-form-large" type="password"
+                                                                                   name="password">
                 </div>
             </div>
             <div class="uk-margin">
@@ -74,7 +84,11 @@
                 <div style="color: black" class="uk-text-left uk-text-small">
 
                 </div>
-
+            {#if message}
+                <div class="uk-text-left uk-text-small">
+                    {message}
+                </div>
+            {/if}
         </form>
 
     </div>
