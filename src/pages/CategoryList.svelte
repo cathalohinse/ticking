@@ -1,6 +1,6 @@
 <script>
     import CategoryForm from "../components/CategoryForm.svelte";
-    import UserList from "../components/UserList.svelte";
+    import UserForm from "../components/UserForm.svelte";
     import phair from "/src/assets/phair.jpg";
     import {navBar, mainBar, subTitle, title} from "../stores"
     import {getContext, onMount} from "svelte";
@@ -11,6 +11,7 @@
     let errorMessage = "";
     let message = "";
     let category = "";
+    let categories = "";
 
     onMount(async () => {
         categoryList = await poiService.getCategories()
@@ -22,10 +23,11 @@
         bar: mainBar
     });
 
-    async function deleteCategory() {
+    async function deleteCategory(category) {
         let success = await poiService.deleteCategory(category)
         if (success) {
             push("/categories");
+            categoryList = await poiService.getCategories()
             message = "Category Deleted";
         } else {
             errorMessage = "Error Deleting Category";
@@ -33,6 +35,7 @@
     }
 
 </script>
+
 
 <div class="uk-container uk-margin" uk-grid>
     <div class="uk-width-auto@m">
@@ -61,7 +64,7 @@
                             <tr>
                                 <td>{category.county}</td>
                                 <td>{category.province}</td>
-                                <td><a href="poiService.deleteCategory(category)"><i class="fas fa-trash fa-2x" style="color:#653DC2"></i></a></td>
+                                <td> <a on:click={deleteCategory(category._id)} class="fas fa-trash fa-2x" style="color:#653DC2"></a></td>
                             </tr>
                         {/each}
                     {/if}
