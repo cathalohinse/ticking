@@ -3,14 +3,17 @@
   import UserForm from "../components/UserForm.svelte";
   import clancy from "/src/assets/clancy.jpg";
   import {navBar, mainBar, subTitle, title, user} from "../stores"
+  import {writable} from "svelte/store";
+  import {getContext} from "svelte";
 
+  const poiService = getContext("PoiService");
   title.set("Poi Services Inc.");
   subTitle.set("Settings");
   navBar.set({
     bar: mainBar
   });
-  //let email = $user.email;
-  //user.set(user);
+
+
 </script>
 
 

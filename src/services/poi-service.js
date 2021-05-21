@@ -41,6 +41,16 @@ export class PoiService {
     }
   }
 
+  async getCategory(category) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/categories/" + category);
+      this.category = response.data;
+      return category;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async getPois() {
     try {
       const response = await axios.get(this.baseUrl + "/api/pois");
@@ -56,6 +66,16 @@ export class PoiService {
       const response = await axios.get(this.baseUrl + "/api/users");
       this.userList = response.data;
       return this.userList;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async getUser(user) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/users/" + user);
+      //this.userList = response.data;
+      return response.data;
     } catch (error) {
       return [];
     }

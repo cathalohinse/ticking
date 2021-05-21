@@ -4,24 +4,19 @@
     import {push} from "svelte-spa-router"
     import {title, subTitle, user, navBar, mainBar} from "../stores"
 
-
-
-
-    user.set({
-    email: $user.email,
-    token: $user.token});
-
     const poiService = getContext("PoiService");
     let userList = [];
     let categoryList = [];
 
-    let firstName = user.firstName;
+    let firstName = $user.firstName;
     let lastName = $user.lastName;
     let email = $user.email;
     let password = $user.password;
     let errorMessage = "";
     let message = "";
     //let user;
+    let token = $user.token;
+    let id = $user._id
 
 
 
