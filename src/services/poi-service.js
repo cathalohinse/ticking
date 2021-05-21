@@ -148,10 +148,36 @@ export class PoiService {
     }
   }
 
+  async createPoi(name, location, latitude, longitude, category, image) {
+    try {
+      const poi = {
+        name: name,
+        location: location,
+        latitude: latitude,
+        longitude: longitude,
+        category: category,
+        image: image,
+      };
+      //this.categoryList.push(category);
+      //const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/" + category);
+      const response = await axios.post(this.baseUrl + "/api/pois", poi);
+      const newPoi = await response.data;
+      user.set(newPoi);
+      return true;
+      //return view("/settings");
+      //return response.status == 200;
+
+    } catch (error) {
+      return false;
+    }
+  }
+
+
   async deleteCategory(category) {
     const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
     console.log("Removing Category: " + category);
     return response.data;
+
   }
 
   async updateSettings(firstName, lastName, email, password, id) {

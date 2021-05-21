@@ -16,6 +16,7 @@
     let submitter = user;
     let poiList = [];
     let categoryList = [];
+    let message = "";
     let errorMessage = "";
     const categories = poiService.categoryList;
     let items = [];
@@ -46,6 +47,16 @@
     function handleSelect(event) {
         console.log('selected item', event.detail);
         // .. do something here 🙂
+    }
+
+    async function createPoi() {
+        let success = await poiService.createPoi(name, location, latitude, longitude, category, image)
+        if (success) {
+            push("/poi");
+            message = "POI Created";
+        } else {
+            errorMessage = "Error Creating POI";
+        }
     }
 
 </script>
