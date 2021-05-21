@@ -1,10 +1,29 @@
 <script>
     import {getContext, onMount} from 'svelte'
     import grandkhaan from "/src/assets/grandkhaan.jpg";
+    import {user, navBar, mainBar, subTitle, title, welcomeBar} from "../stores"
+    import {writable} from "svelte/store";
 
     const poiService = getContext("PoiService");
     let userList = [];
     let categoryList = [];
+
+    title.set("Poi Services Inc.");
+    subTitle.set("All Current Users");
+    navBar.set({
+        bar: mainBar
+    });
+
+    let email = "";
+    let token = "";
+
+    user.set({
+        email: $user.email,
+        token: $user.token
+        //email: "yo",
+        //token: "hey"
+    })
+
 
     onMount(async () => {
         userList = await poiService.getUsers();

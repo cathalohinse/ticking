@@ -13,11 +13,39 @@ export class PoiService {
     }
   }
 
+  async login(email, password) {
+    try {
+      const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {email, password});
+      if (response.data.success) {
+        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
+        user.set({
+          email: email,
+          token: response.data.token
+        });
+        localStorage.poi = JSON.stringify(response.data.token);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async getCategories() {
     try {
       const response = await axios.get(this.baseUrl + "/api/categories");
       this.categoryList = response.data;
       return this.categoryList;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  async getCategory(category) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/categories/" + category);
+      this.category = response.data;
+      return category;
     } catch (error) {
       return [];
     }
@@ -43,21 +71,13 @@ export class PoiService {
     }
   }
 
-  async login(email, password) {
+  async getUser(user) {
     try {
-      const response = await axios.post(`${this.baseUrl}/api/users/authenticate`, {email, password});
-      if (response.data.success) {
-        axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
-        user.set({
-          email: email,
-          token: response.data.token
-        });
-        localStorage.poi = JSON.stringify(response.data.token);
-        return true;
-      }
-      return false;
+      const response = await axios.get(this.baseUrl + "/api/users/" + user);
+      //this.userList = response.data;
+      return response.data;
     } catch (error) {
-      return false;
+      return [];
     }
   }
 
@@ -116,6 +136,7 @@ export class PoiService {
       //this.categoryList.push(category);
       //const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/" + category);
       const response = await axios.post(this.baseUrl + "/api/categories", category);
+      console.log("Added Category: " + category.county + ", " + category.province);
       const newCategory = await response.data;
       user.set(newCategory);
       return true;
@@ -131,6 +152,25 @@ export class PoiService {
     const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
     console.log("Removing Category: " + category);
     return response.data;
+  }
+
+  async updateSettings(firstName, lastName, email, password, id) {
+    try {
+      const userDetails = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        _id: id
+      };
+      console.log(userDetails);
+      const response = await axios.put(`${this.baseUrl}/api/users/${id}`, userDetails);
+      const newUser = await response.data;
+      user.set(newUser);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
 }

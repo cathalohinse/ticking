@@ -2,13 +2,18 @@
   import CategoryForm from "../components/CategoryForm.svelte";
   import UserForm from "../components/UserForm.svelte";
   import clancy from "/src/assets/clancy.jpg";
-  import {navBar, mainBar, subTitle, title} from "../stores"
+  import {navBar, mainBar, subTitle, title, user} from "../stores"
+  import {writable} from "svelte/store";
+  import {getContext} from "svelte";
 
+  const poiService = getContext("PoiService");
   title.set("Poi Services Inc.");
-  subTitle.set("All Current Categories");
+  subTitle.set("Settings");
   navBar.set({
     bar: mainBar
   });
+
+
 </script>
 
 
