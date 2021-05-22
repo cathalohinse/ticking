@@ -7,18 +7,18 @@
     let email = "";
     let password = "";
     let errorMessage = "";
-
     const poiService = getContext("PoiService");
 
     async function signup() {
-        let success = await poiService.signup(firstName, lastName, email, password)
+        let success = await poiService.signup(firstName, lastName, email, password);
         if (success) {
             push("/pois");
         } else {
-            errorMessage = "Error Trying to sign up";
+            errorMessage = "Error Trying to Sign up";
         }
-    }
+    };
 </script>
+
 
 <form on:submit|preventDefault={signup}>
     <div class="uk-margin uk-text-left">
@@ -53,7 +53,7 @@
         <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" style="background-color: #653DC2">Sign up</button>
     </div>
     {#if errorMessage}
-        <div class="uk-text-left uk-text-small">
+        <div style="color: black" class="uk-text-left uk-text-small">
             {errorMessage}
         </div>
     {/if}

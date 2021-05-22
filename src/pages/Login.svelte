@@ -1,6 +1,6 @@
 <script>
-  import {title, subTitle, navBar, welcomeBar} from "../stores"
-  import LoginForm from "../components/LoginForm.svelte"
+  import {title, subTitle, navBar, welcomeBar} from "../stores";
+  import LoginForm from "../components/LoginForm.svelte";
   import henchy2 from "/src/assets/henchy2.jpg";
   title.set("Poi Services Inc");
   subTitle.set("Please Log in");
@@ -9,6 +9,7 @@
     bar: welcomeBar
   });
 </script>
+
 
 <div class="uk-flex-middle uk-text-center" uk-grid>
   <div class="uk-width-2-3@m">

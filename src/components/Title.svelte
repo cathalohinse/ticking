@@ -1,7 +1,9 @@
 <script>
   import porter from "/src/assets/porter.png"
   import {title, subTitle, user} from "../stores.js"
+  import { PoiService } from "../services/poi-service"
 </script>
+
 
 <div class="uk-width-2-3@m  uk-card uk-card-default uk-padding-small uk-visible@m" style="background-color: #877EB4">
   <div class="uk-grid" style="color: black">

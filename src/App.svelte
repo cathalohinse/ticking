@@ -4,7 +4,7 @@
   import Main from "./pages/Main.svelte"
   import Login from "./pages/Login.svelte"
   import Settings from "./pages/Settings.svelte";
-  import Pois from "./pages/Pois.svelte";
+  import Pois from "./pages/PoiList.svelte";
   import Navigator from "./components/Navigator.svelte";
   import Router from "svelte-spa-router";
   import Poi from "./pages/Poi.svelte";

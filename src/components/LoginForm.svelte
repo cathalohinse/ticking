@@ -1,14 +1,14 @@
 <script>
   import { push } from "svelte-spa-router";
   import {getContext} from "svelte";
-  const poiService = getContext("PoiService");
 
-  let email = ""
+  const poiService = getContext("PoiService");
+  let email = "";
   let password = "";
   let errorMessage = "";
 
   async function login() {
-    let success = await poiService.login(email, password)
+    let success = await poiService.login(email, password);
     if (success) {
       push("/pois");
     } else {
@@ -16,7 +16,7 @@
       password = "";
       errorMessage = "Invalid Credentials";
     }
-  }
+  };
 </script>
 
 <form on:submit|preventDefault={login}>
@@ -37,7 +37,7 @@
     <button class="uk-button uk-button-primary uk-button-large uk-width-1-1" style="background-color: #653DC2">Login</button>
   </div>
   {#if errorMessage}
-    <div class="uk-text-left uk-text-small">
+    <div style="color: black" class="uk-text-left uk-text-small">
       {errorMessage}
     </div>
   {/if}

@@ -1,13 +1,18 @@
 <script>
-  import {title, subTitle, navBar, welcomeBar} from "../stores"
+  import {title, subTitle, navBar, welcomeBar} from "../stores";
   import henchy from "/src/assets/henchy.jpg";
+  import {getContext} from "svelte";
+
+  const poiService = getContext("PoiService");
   title.set("Poi Services Inc");
   subTitle.set("Sign up or Log in");
 
   navBar.set({
     bar: welcomeBar
   });
+  poiService.logout();
 </script>
+
 
 <div class="uk-text-center" uk-grid>
   <div class="uk-width-1-2@m">
@@ -21,4 +26,3 @@
     </div>
   </div>
 </div>
-
