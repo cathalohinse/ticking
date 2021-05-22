@@ -1,8 +1,7 @@
 <script>
     import {getContext, onMount} from 'svelte'
     import grandkhaan from "/src/assets/grandkhaan.jpg";
-    import {user, navBar, mainBar, subTitle, title, welcomeBar} from "../stores"
-    import {writable} from "svelte/store";
+    import {user, navBar, mainBar, subTitle, title} from "../stores"
 
     const poiService = getContext("PoiService");
     let userList = [];
@@ -14,25 +13,17 @@
         bar: mainBar
     });
 
-    let email = "";
-    let token = "";
-
     user.set({
         email: $user.email,
         token: $user.token
-        //email: "yo",
-        //token: "hey"
     })
-
 
     onMount(async () => {
         userList = await poiService.getUsers();
         categoryList = await poiService.getCategories();
     });
-
-
-
 </script>
+
 
 <div class="uk-container uk-margin" uk-grid>
     <div class="uk-width-auto@m">

@@ -4,6 +4,7 @@ import {user} from "../stores";
 export class PoiService {
   categoryList = [];
   poiList = [];
+  userList = [];
   baseUrl = "";
 
   constructor(baseUrl) {
@@ -11,7 +12,8 @@ export class PoiService {
     if (localStorage.poi) {
       axios.defaults.headers.common["Authorization"] = "Bearer " + JSON.parse(localStorage.poi);
     }
-  }
+    console.log("test to see if constructor is working. JWT: ", localStorage.poi);
+  };
 
   async login(email, password) {
     try {
@@ -29,7 +31,16 @@ export class PoiService {
     } catch (error) {
       return false;
     }
-  }
+  };
+
+  async getCategory(category) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/categories/" + category);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
 
   async getCategories() {
     try {
@@ -39,93 +50,7 @@ export class PoiService {
     } catch (error) {
       return [];
     }
-  }
-
-  async getCategory(category) {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/categories/" + category);
-      this.category = response.data;
-      return category;
-    } catch (error) {
-      return [];
-    }
-  }
-
-  async getPois() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/pois");
-      this.poiList = response.data;
-      return this.poiList;
-    } catch (error) {
-      return [];
-    }
-  }
-
-  async getUsers() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/users");
-      this.userList = response.data;
-      return this.userList;
-    } catch (error) {
-      return [];
-    }
-  }
-
-  async getUser(user) {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/users/" + user);
-      //this.userList = response.data;
-      return response.data;
-    } catch (error) {
-      return [];
-    }
-  }
-
-  async logout() {
-    user.set({
-      email: "",
-      token: ""
-    });
-    axios.defaults.headers.common["Authorization"] = "";
-    localStorage.poi = null;
-  }
-
-  async poi(name, location, latitude, longitude, image, category, submitter) {
-    try {
-      const poi = {
-        name: name,
-        location: location,
-        latitude: latitude,
-        longitude: longitude,
-        image: image,
-        category: category,
-        submitter: submitter
-      };
-      this.poiList.push(poi);
-      const response = await axios.post(this.baseUrl + "/api/pois/" + poi._id);
-      return response.status == 200;
-    } catch (error) {
-      return false;
-    }
-  }
-
-
-  async signup(firstName, lastName, email, password) {
-    try {
-      const userDetails = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      };
-      const response = await axios.post(this.baseUrl + "/api/users", userDetails);
-      const newUser = await response.data;
-      user.set(newUser);
-      return true;
-          } catch (error) {
-      return false;
-    }
-  }
+  };
 
   async createCategory(county, province) {
     try {
@@ -142,13 +67,37 @@ export class PoiService {
       return true;
       //return view("/settings");
       //return response.status == 200;
-
     } catch (error) {
       return false;
     }
-  }
+  };
 
-  async createPoi(name, location, latitude, longitude, category, image) {
+  async deleteCategory(category) {
+    const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
+    console.log("Removing Category: " + category);
+    return response.data;
+  };
+
+  async getPoi(poi) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/pois/" + poi);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async getPois() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/pois");
+      this.poiList = response.data;
+      return this.poiList;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async createPoi(name, location, latitude, longitude, category, image, submitter) {
     try {
       const poi = {
         name: name,
@@ -157,28 +106,68 @@ export class PoiService {
         longitude: longitude,
         category: category,
         image: image,
+        submitter: submitter
       };
-      //this.categoryList.push(category);
-      //const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/" + category);
+      //this.poiList.push(poi);
       const response = await axios.post(this.baseUrl + "/api/pois", poi);
-      const newPoi = await response.data;
-      user.set(newPoi);
-      return true;
-      //return view("/settings");
-      //return response.status == 200;
-
+      //const response = await axios.post(this.baseUrl + "/api/pois/" + poi._id + "/pois", poi);
+      return response.status == 200;
+      //const newPoi = await response.data;
+      //user.set(newPoi);
+      //return true;
     } catch (error) {
       return false;
     }
-  }
+  };
 
-
-  async deleteCategory(category) {
-    const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
-    console.log("Removing Category: " + category);
+  async deletePoi(poi) {
+    const response = await axios.delete(this.baseUrl + "/api/pois/" + poi);
+    console.log("Removing POI: " + poi);
     return response.data;
+  };
 
-  }
+  async getUser(user) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/users/" + user);
+      //this.userList = response.data;
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async getUsers() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/users");
+      this.userList = response.data;
+      return this.userList;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async signup(firstName, lastName, email, password) {
+    try {
+      const userDetails = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      };
+      const response = await axios.post(this.baseUrl + "/api/users", userDetails);
+      const newUser = await response.data;
+      user.set(newUser);
+      return true;
+          } catch (error) {
+      return false;
+    }
+  };
+
+  async deleteUser(user) {
+    const response = await axios.delete(this.baseUrl + "/api/users/" + user);
+    console.log("Removing User: " + user);
+    return response.data;
+  };
 
   async updateSettings(firstName, lastName, email, password, id) {
     try {
@@ -197,6 +186,15 @@ export class PoiService {
     } catch (error) {
       return false;
     }
-  }
+  };
+
+  async logout() {
+    user.set({
+      email: "",
+      token: ""
+    });
+    axios.defaults.headers.common["Authorization"] = "";
+    localStorage.poi = null;
+  };
 
 }

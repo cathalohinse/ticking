@@ -5,11 +5,11 @@
 
     title.set("POI Services Inc");
     subTitle.set("Please Sign up");
-
     navBar.set({
         bar: welcomeBar
     });
 </script>
+
 
 <div class="uk-flex-middle uk-text-center" uk-grid>
     <div class="uk-width-1-2@m ">

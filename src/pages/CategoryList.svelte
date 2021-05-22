@@ -1,8 +1,6 @@
 <script>
-    import CategoryForm from "../components/CategoryForm.svelte";
-    import UserForm from "../components/UserForm.svelte";
     import phair from "/src/assets/phair.jpg";
-    import {navBar, mainBar, subTitle, title} from "../stores"
+    import {navBar, mainBar, subTitle, title} from "../stores";
     import {getContext, onMount} from "svelte";
     import {push} from "svelte-spa-router";
 
@@ -10,12 +8,7 @@
     let categoryList;
     let errorMessage = "";
     let message = "";
-    let category = "";
-    let categories = "";
-
-    onMount(async () => {
-        categoryList = await poiService.getCategories()
-    })
+    let category = [];
 
     title.set("Poi Services Inc.");
     subTitle.set("All Current Categories");
@@ -23,17 +16,20 @@
         bar: mainBar
     });
 
+    onMount(async () => {
+        categoryList = await poiService.getCategories();
+    })
+
     async function deleteCategory(category) {
-        let success = await poiService.deleteCategory(category)
+        let success = await poiService.deleteCategory(category);
         if (success) {
             push("/categories");
-            categoryList = await poiService.getCategories()
+            categoryList = await poiService.getCategories();
             message = "Category Deleted";
         } else {
             errorMessage = "Error Deleting Category";
         }
-    }
-
+    };
 </script>
 
 

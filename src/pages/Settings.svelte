@@ -4,16 +4,21 @@
   import clancy from "/src/assets/clancy.jpg";
   import {navBar, mainBar, subTitle, title, user} from "../stores"
   import {writable} from "svelte/store";
-  import {getContext} from "svelte";
+  import {getContext, onMount} from "svelte";
+  import { PoiService } from "../services/poi-service"
 
   const poiService = getContext("PoiService");
+
   title.set("Poi Services Inc.");
   subTitle.set("Settings");
   navBar.set({
     bar: mainBar
   });
 
-
+  onMount(async () => {
+    console.log("Hey, user: ", $user, " Yo, email: ", $user.email);
+    console.log($user);
+  });
 </script>
 
 

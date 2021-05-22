@@ -9,27 +9,29 @@
 
     let name = "";
     let location = "";
-    let latitude = "";
-    let longitude = "";
-    let image = "";
+    let latitude;
+    let longitude;
+    let image;
     let category = "";
-    let submitter = user;
+    //let submitter = "";
     let poiList = [];
     let categoryList = [];
     let message = "";
     let errorMessage = "";
     const categories = poiService.categoryList;
     let items = [];
+    let selectedCategory;
 
     onMount(async () => {
         poiList = await poiService.getPois();
         categoryList = await poiService.getCategories();
     });
 
-    async function poi() {
-        let success = await poiService.poi(name, location, latitude, longitude, image, category, submitter)
+    async function createPoi() {
+        const submitter = "60a8a1e1ddca59436c3b1242";
+        const success = await poiService.createPoi(name, location, latitude, longitude, image, categoryList[selectedCategory], submitter)
         if (success) {
-            push("/poi");
+            //push("/poi");
         } else {
             errorMessage = "POI creation not completed - some error occurred";
         }
@@ -42,28 +44,24 @@
             );
     });
 
-
     let selectedValue = {value: 'Select Category', label: 'Select Category'};
     function handleSelect(event) {
-        console.log('selected item', event.detail);
-        // .. do something here 🙂
-    }
+        console.log('Selected Category: ', event.detail);
+    };
 
-    async function createPoi() {
-        let success = await poiService.createPoi(name, location, latitude, longitude, category, image)
+    async function createsPoi() {
+        let success = await poiService.createPoi(name, location, latitude, longitude, category, image);
         if (success) {
             push("/poi");
             message = "POI Created";
         } else {
             errorMessage = "Error Creating POI";
         }
-    }
-
+    };
 </script>
 
 
-
-<form on:submit|preventDefault={poi} class="uk-form-stacked uk-text-left">
+<form on:submit|preventDefault={createPoi} class="uk-form-stacked uk-text-left">
     <div class="uk-grid uk-grid-stack">
         <div class="uk-width-1-1@m">
             <div class="uk-margin">
@@ -81,12 +79,12 @@
             <div class="uk-margin">
                 <label style="color: black" class="uk-form-label" for="form-stacked-text">Enter Coordinates (Latitude & Longitude) of Location of Pub</label>
                 <div class="uk-form-controls">
-                    <input bind:value={latitude} class="uk-input" id="form-stacked-text" type="text" name="latitude" placeholder="Latitude"/>
-                    <input bind:value={longitude} class="uk-input" id="form-stacked-text" type="text" name="longitude" placeholder="Longitude"/>
+                    <input bind:value={latitude} class="uk-input" id="form-stacked-text" type="number" step="any" name="latitude" placeholder="Latitude"/>
+                    <input bind:value={longitude} class="uk-input" id="form-stacked-text" type="number" step="any" name="longitude" placeholder="Longitude"/>
                 </div>
             </div>
             <label style="color: black" class="uk-form-label" for="form-stacked-text">Select Category</label>
-            <Select {items} {selectedValue} on:select={handleSelect}></Select>
+            <Select {items} on:select={handleSelect}></Select>
             <div class="uk-margin">
                 <label style="color: black" class="uk-form-label" for="form-stacked-text">Upload an Image of the Pub</label>
                 <div class="uk-form-controls">
@@ -99,7 +97,7 @@
         <button style="background-color: #653DC2" class="uk-button uk-button-primary uk-button-large uk-width-1-1">Submit</button>
     </div>
     {#if errorMessage}
-        <div class="uk-text-left uk-text-small">
+        <div style="color: black" class="uk-text-left uk-text-small">
             {errorMessage}
         </div>
     {/if}

@@ -1,5 +1,5 @@
 <script>
-  import {onMount, getContext} from 'svelte'
+  import {onMount, getContext} from 'svelte';
   import { PoiService } from "../services/poi-service";
   import {push} from "svelte-spa-router";
 
@@ -8,30 +8,30 @@
   let province = "";
   let errorMessage = "";
   let message = "";
-  let categoryList;
+  let categoryList = [];
+  let category;
+  let countyList = [];
 
   onMount(async () => {
-    categoryList = await poiService.getCategories()
-  })
+    categoryList = await poiService.getCategories();
+    console.log("Current Categories in db: ", categoryList);
+  });
 
   async function createCategory() {
-    let success = await poiService.createCategory(county, province)
+    let success = await poiService.createCategory(county, province);
     if (success) {
       push("/categories");
       message = "Category Created";
     } else {
       errorMessage = "Error Creating Category";
     }
-  }
-
+  };
 </script>
-
 
 
 <div class="uk-width-expand@m">
   <div style="background-color: #877EB4" class="uk-card uk-card-default uk-width-xlarge uk-card-body uk-box-shadow-large">
     <h3 class="uk-card-title uk-text-center">New Category:</h3>
-
       <form on:submit|preventDefault={createCategory}>
       <div class="uk-margin">
         <div class="uk-inline uk-width-1-1">
@@ -55,6 +55,5 @@
           </div>
         {/if}
     </form>
-
   </div>
 </div>
