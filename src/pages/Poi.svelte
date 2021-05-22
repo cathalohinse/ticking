@@ -1,7 +1,7 @@
 <script>
     import hamilton from "/src/assets/hamilton.jpg";
     import {navBar, mainBar, subTitle, title} from "../stores"
-    import PoiForm from "../components/CreatePoi.svelte";
+    import PoiForm from "../components/PoiForm.svelte";
     import 'leaflet/dist/leaflet.css';
     import {onMount, getContext} from 'svelte'
     import {LeafletMap} from "../services/leaflet-map";
@@ -12,9 +12,11 @@
         bar: mainBar
     });
 
+    const poiService = getContext("PoiService");
     let lat = 52.160858;
     let lng = -7.152420;
     let map;
+
     onMount(async () => {
         const mapConfig = {
             location: {lat: lat, lng: lng},
@@ -25,8 +27,8 @@
         map.showZoomControl();
         map.addMarker({lat: lat, lng: lng});
     });
-
 </script>
+
 
 <div class="uk-flex-middle uk-text-center" uk-grid>
     <div class="uk-width-1-2@m ">
