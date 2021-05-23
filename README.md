@@ -34,10 +34,15 @@ This application incorporates the following:
 * Leaflet
 * MapTiler
 * sanitize-html
+* JWT
+* Netlify
 * Svelte
 
 	
 ### Links
-* [Glitch](https://aiteanna-speisiula.glitch.me/)
-* [Heroku](https://aiteanna-speisiula.herokuapp.com/)
-* [YouTube](https://www.youtube.com/watch?v=WgkLDYHRNuY)
+* [Glitch (Assignment 1)](https://aiteanna-speisiula.glitch.me/)
+* [Heroku (Assignment 1)](https://aiteanna-speisiula.herokuapp.com/)
+* [Netlify (Assignment 2)](https://ticking1.netlify.app/)
+* [YouTube (Assignment 1)](https://www.youtube.com/watch?v=WgkLDYHRNuY)
+* [YouTube (Assignment 2)](https://www.youtube.com/watch?v=kFRh5HAhqeQ)
+* ['aiteanna-speisiula' github repository](https://github.com/cathalohinse/aiteanna-speisiula)
