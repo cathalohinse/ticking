@@ -9,7 +9,7 @@
 
   const poiService = getContext("PoiService");
 
-  title.set("Poi Services Inc.");
+  title.set("POI Services Inc.");
   subTitle.set("Settings");
   navBar.set({
     bar: mainBar

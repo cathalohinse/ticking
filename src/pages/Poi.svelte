@@ -6,8 +6,8 @@
     import {onMount, getContext} from 'svelte'
     import {LeafletMap} from "../services/leaflet-map";
 
-    title.set("Poi Services Inc.");
-    subTitle.set("Make a POI!");
+    title.set("POI Services Inc.");
+    subTitle.set("Make a POI");
     navBar.set({
         bar: mainBar
     });

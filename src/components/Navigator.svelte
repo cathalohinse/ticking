@@ -3,6 +3,7 @@
   import {navBar} from "../stores"
 </script>
 
+
 <div class="uk-flex uk-flex-center uk-flex-middle uk-text-center uk-grid-small" uk-grid>
   <Title title="Pois" subTitle="Select POIs or Categories" />
   <div>
