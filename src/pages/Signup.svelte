@@ -3,7 +3,7 @@
     import {title, subTitle, navBar, welcomeBar} from "../stores"
     import SignupForm from "../components/SignupForm.svelte"
 
-    title.set("POI Services Inc");
+    title.set("POI Services Inc.");
     subTitle.set("Please Sign up");
     navBar.set({
         bar: welcomeBar
@@ -13,7 +13,7 @@
 
 <div class="uk-flex-middle uk-text-center" uk-grid>
     <div class="uk-width-1-2@m ">
-        <img width="300" src="{tavern}" alt="homer">
+        <img width="300" src="{tavern}" alt="pub">
     </div>
     <div class="uk-width-1-2@m">
         <div class="uk-card uk-card-default uk-card-body uk-box-shadow-large uk-width-2xlarge" style="background-color: #877EB4; color: black">

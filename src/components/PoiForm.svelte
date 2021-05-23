@@ -1,6 +1,5 @@
 <script lang="ts">
     import {getContext, onMount} from 'svelte'
-    import Coordinates from "./Coordinates.svelte";
     import {user} from "../stores";
     const poiService = getContext("PoiService");
     import { push } from "svelte-spa-router";

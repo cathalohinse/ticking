@@ -16,12 +16,12 @@ export const welcomeBar = [
 ];
 
 export let mainBar = [{
-  title: "Poi",
+  title: "Make a POI",
   icon: "fas fa-hand-holding-usd fa-3x",
   colour: "color:rgb(153, 196, 74)",
   link: "/#/poi",
 }, {
-  title: "POIs",
+  title: "POI List",
   icon: "fas fa-clipboard-list fa-3x",
   colour: "color:rgb(153, 196, 74)",
   link: "/#/pois",

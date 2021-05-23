@@ -2,7 +2,7 @@
   import {title, subTitle, navBar, welcomeBar} from "../stores";
   import LoginForm from "../components/LoginForm.svelte";
   import henchy2 from "/src/assets/henchy2.jpg";
-  title.set("Poi Services Inc");
+  title.set("POI Services Inc.");
   subTitle.set("Please Log in");
 
   navBar.set({

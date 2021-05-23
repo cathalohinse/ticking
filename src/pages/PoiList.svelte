@@ -16,7 +16,7 @@
   let errorMessage = "";
   let map;
 
-  title.set("Poi Services Inc.");
+  title.set("POI Services Inc.");
   subTitle.set("Latest Pois");
   navBar.set({
     bar: mainBar
@@ -91,7 +91,7 @@
   <div class="uk-child-width-expand uk-flex-center uk-flex-middle uk-text-center" uk-grid>
     <div class="uk-width-expand@m" style="background-color: #877EB4">
       <h3 class="uk-heading-divider">
-        Poi List </h3>
+        POI List </h3>
       <div class="uk-table uk-table-divider">
         <table class="uk-table">
           <thead>

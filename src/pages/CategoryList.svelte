@@ -10,7 +10,7 @@
     let message = "";
     let category = [];
 
-    title.set("Poi Services Inc.");
+    title.set("POI Services Inc.");
     subTitle.set("All Current Categories");
     navBar.set({
         bar: mainBar
