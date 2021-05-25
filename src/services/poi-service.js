@@ -109,7 +109,7 @@ export class PoiService {
         submitter: submitter
       };
       //this.poiList.push(poi);
-      const response = await axios.post(this.baseUrl + "/api/pois", poi);
+      const response = await axios.post(this.baseUrl + "/api/pois", poi, {image: image});
       //const response = await axios.post(this.baseUrl + "/api/pois/" + poi._id + "/pois", poi);
       return response.status == 200;
       //const newPoi = await response.data;
@@ -129,6 +129,7 @@ export class PoiService {
   async getUser(user) {
     try {
       const response = await axios.get(this.baseUrl + "/api/users/" + user);
+      axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
       //this.userList = response.data;
       return response.data;
     } catch (error) {

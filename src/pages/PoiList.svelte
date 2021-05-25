@@ -128,8 +128,8 @@
                 <td>{poi.location}</td>
                 <td>{poi.latitude}, {poi.longitude}</td>
                 <td><img src="{poi.image}" alt="Pub" width="200" height="200"></td>
-                <td>{#await getCategoryProvince(poi.category)}{/await} {poi.category}</td>
-                <td>{poi.submitter}</td>
+                <td>{#await getCategoryProvince(poi.category)}{/await} {poi.category.county}, {poi.category.province}</td>
+                <td>{poi.submitter.firstName} {poi.submitter.lastName}</td>
                 <td> <a on:click={deletePoi(poi._id)} class="fas fa-trash fa-2x" style="color:#653DC2"></a></td>
                 <td><i class="fas fa-recycle fa-2x" style="color:#653DC2"></i></td>
               </tr>
