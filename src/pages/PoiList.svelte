@@ -8,7 +8,6 @@
   const poiService = getContext("PoiService");
   let poiList = [];
   let categoryList = [];
-  let getCounty;
   let lat = 0;
   let lng = 0;
   let category;
@@ -21,17 +20,15 @@
   navBar.set({
     bar: mainBar
   });
+  user.set({
+    email: $user.email,
+    token: $user.token
+  });
 
   onMount(async () => {
     poiList = await poiService.getPois();
     categoryList = await poiService.getCategories();
     console.log(categoryList);
-    getCounty = await poiService.getCategory($user._id);
-    console.log(await getCounty.county);
-    console.log(await getCategoryProvince($user._id));
-    const users = localStorage.getItem($user._id);
-    console.log($user);
-    console.log(localStorage.getItem($user));
   });
 
   onMount(async () => {
@@ -43,14 +40,11 @@
     map = new LeafletMap("poi-map", mapConfig, 'Terrain');
     map.showZoomControl();
     map.showLayerControl();
-    /*poiList.forEach(poi=>{
-      {map.addMarker({lat: poi.latitude, lng: poi.longitude}, poi.name)}
-    });*/
-    //map.addMarker({lat: lat, lng: lng});
     map.zoomTo({lat: 30.00000, lng: 70.00000});
   });
 
   //One of many test functions written while trying to figure out how to get anything at all to work
+  //This doesn't serve any purpose, it is just left in as a representative of some of the work that went in to this
   async function getCategoryProvince(category) {
     let getCategory = await poiService.getCategory(category);
     let getProvince = await getCategory.province;
@@ -63,6 +57,7 @@
     return response;
   }
 
+  //Delete Function
   async function deletePoi(poi) {
     let marker = [
       {
@@ -83,7 +78,6 @@
       errorMessage = "Error Deleting POI";
     }
   };
-
 </script>
 
 
@@ -95,30 +89,14 @@
       <div class="uk-table uk-table-divider">
         <table class="uk-table">
           <thead>
-          <th style="color: black">
-            Name
-          </th>
-          <th style="color: black">
-            Location
-          </th>
-          <th style="color: black">
-            Coordinates
-          </th>
-          <th style="color: black">
-            Image
-          </th>
-          <th style="color: black">
-            Category
-          </th>
-          <th style="color: black">
-            Submitter
-          </th>
-          <th style="color: black">
-            Delete
-          </th>
-          <th style="color: black">
-            Update
-          </th>
+          <th style="color: black">Name</th>
+          <th style="color: black">Location</th>
+          <th style="color: black">Coordinates</th>
+          <th style="color: black">Image</th>
+          <th style="color: black">Category</th>
+          <th style="color: black">Submitter</th>
+          <th style="color: black">Delete</th>
+          <th style="color: black">Update</th>
           </thead>
           <tbody class="uk-text-left">
           {#if poiList}
@@ -131,7 +109,7 @@
                 <td>{#await getCategoryProvince(poi.category)}{/await} {poi.category.county}, {poi.category.province}</td>
                 <td>{poi.submitter.firstName} {poi.submitter.lastName}</td>
                 <td> <a on:click={deletePoi(poi._id)} class="fas fa-trash fa-2x" style="color:#653DC2"></a></td>
-                <td><i class="fas fa-recycle fa-2x" style="color:#653DC2"></i></td>
+                <td><a href="/#/pois/{poi._id}"><i class="fas fa-recycle fa-2x" style="color:#653DC2"></i></a></td>
               </tr>
             {/each}
           {/if}

@@ -5,7 +5,6 @@
     import { push } from "svelte-spa-router";
     import Select from 'svelte-select';
     import { get } from "svelte/store";
-    import {each} from "svelte/internal";
 
     let name = "";
     let location = "";
@@ -13,7 +12,6 @@
     let longitude;
     let image;
     let category = "";
-    //let submitter = "";
     let poiList = [];
     let categoryList = [];
     let message = "";
@@ -22,20 +20,20 @@
     let items = [];
     let currentUser = get(user);
     let files = [];
-    //let selectedCategory;
 
     onMount(async () => {
         poiList = await poiService.getPois();
         categoryList = await poiService.getCategories();
     });
 
+    //Main Function
     async function createPoi() {
         let ifile = files[0];
         let reader = new FileReader();
         const submitter = currentUser;
         reader.onload = async function(e) {
             image = e.target.result;
-            const success = await poiService.createPoi(name, location, latitude, longitude, selectedCategory, image, submitter)
+            const success = await poiService.createPoi(name, location, latitude, longitude, selectedCategory, image, submitter);
             if (success) {
                 push("/pois");
             } else {
@@ -45,11 +43,10 @@
         reader.readAsDataURL(ifile);
     };
 
+    //These two functions are for getting the Categories
     categories.forEach(category=>{
         let categorySelection = JSON.stringify(category);
-        items.push(
-            {value: category, label: category.county + ", " + category.province}
-            );
+        items.push({value: category, label: category.county + ", " + category.province});
     });
 
     let selectedCategory;

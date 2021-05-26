@@ -24,18 +24,7 @@
         console.log("Logged in User: ", await getUser._id);
     });
 
-    /*async function getFirstName() {
-        users.forEach(user => {
-            if (poiService.getUser("60a8a1e1ddca59436c3b1242") == "60a8a1e1ddca59436c3b1242") {
-                const firstName = poiService.getUser("60a8a1e1ddca59436c3b1242").firstName;
-                return firstName;
-                console.log("First Name: ", firstName);
-            } else {
-                console.log("Error Trying to save settings");
-            }
-        });
-    }*/
-
+    //Save Function
     async function save() {
         let success = await poiService.updateSettings(firstName, lastName, email, password, $user._id);
         if (success) {
@@ -45,6 +34,7 @@
         }
     };
 
+    //Delete Function
     async function deleteUser(user) {
         let success = await poiService.deleteUser(user);
         if (success) {

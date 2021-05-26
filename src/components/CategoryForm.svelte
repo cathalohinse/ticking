@@ -9,14 +9,13 @@
   let errorMessage = "";
   let message = "";
   let categoryList = [];
-  let category;
-  let countyList = [];
 
   onMount(async () => {
     categoryList = await poiService.getCategories();
     console.log("Current Categories in db: ", categoryList);
   });
 
+  //Main Function
   async function createCategory() {
     let success = await poiService.createCategory(county, province);
     if (success) {

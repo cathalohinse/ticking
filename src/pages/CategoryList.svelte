@@ -1,6 +1,6 @@
 <script>
     import phair from "/src/assets/phair.jpg";
-    import {navBar, mainBar, subTitle, title} from "../stores";
+    import {navBar, mainBar, subTitle, title, user} from "../stores";
     import {getContext, onMount} from "svelte";
     import {push} from "svelte-spa-router";
 
@@ -15,11 +15,16 @@
     navBar.set({
         bar: mainBar
     });
+    user.set({
+        email: $user.email,
+        token: $user.token
+    });
 
     onMount(async () => {
         categoryList = await poiService.getCategories();
-    })
+    });
 
+    //Main Function
     async function deleteCategory(category) {
         let success = await poiService.deleteCategory(category);
         if (success) {
@@ -44,15 +49,9 @@
             <div class="uk-table uk-table-divider">
                 <table class="uk-table">
                     <thead>
-                    <th style="color: black">
-                        County
-                    </th>
-                    <th style="color: black">
-                        Province
-                    </th>
-                    <th style="color: black">
-                        Delete
-                    </th>
+                    <th style="color: black">County</th>
+                    <th style="color: black">Province</th>
+                    <th style="color: black">Delete</th>
                     </thead>
                     <tbody class="uk-text-left">
                     {#if categoryList}
