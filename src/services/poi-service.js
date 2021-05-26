@@ -33,6 +33,23 @@ export class PoiService {
     }
   };
 
+  //CRD Category
+  async createCategory(county, province) {
+    try {
+      const category = {
+        county: county,
+        province: province,
+      };
+      const response = await axios.post(this.baseUrl + "/api/categories", category);
+      console.log("Added Category: " + category.county + ", " + category.province);
+      const newCategory = await response.data;
+      user.set(newCategory);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   async getCategory(category) {
     try {
       const response = await axios.get(this.baseUrl + "/api/categories/" + category);
@@ -52,36 +69,45 @@ export class PoiService {
     }
   };
 
-  async createCategory(county, province) {
-    try {
-      const category = {
-        county: county,
-        province: province,
-      };
-      //this.categoryList.push(category);
-      //const response = await axios.post(this.baseUrl + "/api/categories/" + category._id + "/" + category);
-      const response = await axios.post(this.baseUrl + "/api/categories", category);
-      console.log("Added Category: " + category.county + ", " + category.province);
-      const newCategory = await response.data;
-      user.set(newCategory);
-      return true;
-      //return view("/settings");
-      //return response.status == 200;
-    } catch (error) {
-      return false;
-    }
-  };
-
   async deleteCategory(category) {
     const response = await axios.delete(this.baseUrl + "/api/categories/" + category);
     console.log("Removing Category: " + category);
     return response.data;
   };
 
+  //CRUD POI
+  async createPoi(name, location, latitude, longitude, category, image, submitter) {
+    try {
+      const poi = {
+        name: name,
+        location: location,
+        latitude: latitude,
+        longitude: longitude,
+        category: category,
+        image: image,
+        submitter: submitter
+      };
+      const response = await axios.post(this.baseUrl + "/api/pois", poi, {image: image});
+      return response.status == 200;
+    } catch (error) {
+      return false;
+    }
+  };
+
   async getPoi(poi) {
     try {
       const response = await axios.get(this.baseUrl + "/api/pois/" + poi);
       return response.data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  async findOnePoi(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/pois/" + id);
+      this.poiList = response.data;
+      return this.poiList;
     } catch (error) {
       return [];
     }
@@ -97,26 +123,12 @@ export class PoiService {
     }
   };
 
-  async createPoi(name, location, latitude, longitude, category, image, submitter) {
+  async updatePoi(id, poi) {
     try {
-      const poi = {
-        name: name,
-        location: location,
-        latitude: latitude,
-        longitude: longitude,
-        category: category,
-        image: image,
-        submitter: submitter
-      };
-      //this.poiList.push(poi);
-      const response = await axios.post(this.baseUrl + "/api/pois", poi);
-      //const response = await axios.post(this.baseUrl + "/api/pois/" + poi._id + "/pois", poi);
+      const response = await axios.post(this.baseUrl + "/api/pois/" + id, poi);
       return response.status == 200;
-      //const newPoi = await response.data;
-      //user.set(newPoi);
-      //return true;
     } catch (error) {
-      return false;
+      return [];
     }
   };
 
@@ -126,10 +138,28 @@ export class PoiService {
     return response.data;
   };
 
+  //CRUD User
+  async signup(firstName, lastName, email, password) {
+    try {
+      const userDetails = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      };
+      const response = await axios.post(this.baseUrl + "/api/users", userDetails);
+      const newUser = await response.data;
+      user.set(newUser);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   async getUser(user) {
     try {
       const response = await axios.get(this.baseUrl + "/api/users/" + user);
-      //this.userList = response.data;
+      axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.token;
       return response.data;
     } catch (error) {
       return [];
@@ -144,29 +174,6 @@ export class PoiService {
     } catch (error) {
       return [];
     }
-  };
-
-  async signup(firstName, lastName, email, password) {
-    try {
-      const userDetails = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      };
-      const response = await axios.post(this.baseUrl + "/api/users", userDetails);
-      const newUser = await response.data;
-      user.set(newUser);
-      return true;
-          } catch (error) {
-      return false;
-    }
-  };
-
-  async deleteUser(user) {
-    const response = await axios.delete(this.baseUrl + "/api/users/" + user);
-    console.log("Removing User: " + user);
-    return response.data;
   };
 
   async updateSettings(firstName, lastName, email, password, id) {
@@ -186,6 +193,12 @@ export class PoiService {
     } catch (error) {
       return false;
     }
+  };
+
+  async deleteUser(user) {
+    const response = await axios.delete(this.baseUrl + "/api/users/" + user);
+    console.log("Removing User: " + user);
+    return response.data;
   };
 
   async logout() {

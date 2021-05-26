@@ -1,7 +1,6 @@
 <script>
   import porter from "/src/assets/porter.png"
   import {title, subTitle, user} from "../stores.js"
-  import { PoiService } from "../services/poi-service"
 </script>
 
 

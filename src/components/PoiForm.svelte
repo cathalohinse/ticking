@@ -4,7 +4,7 @@
     const poiService = getContext("PoiService");
     import { push } from "svelte-spa-router";
     import Select from 'svelte-select';
-    import {each} from "svelte/internal";
+    import { get } from "svelte/store";
 
     let name = "";
     let location = "";
@@ -12,40 +12,47 @@
     let longitude;
     let image;
     let category = "";
-    //let submitter = "";
     let poiList = [];
     let categoryList = [];
     let message = "";
     let errorMessage = "";
     const categories = poiService.categoryList;
     let items = [];
-    let selectedCategory;
+    let currentUser = get(user);
+    let files = [];
 
     onMount(async () => {
         poiList = await poiService.getPois();
         categoryList = await poiService.getCategories();
     });
 
+    //Main Function
     async function createPoi() {
-        const submitter = "60a8a1e1ddca59436c3b1242";
-        const success = await poiService.createPoi(name, location, latitude, longitude, image, categoryList[selectedCategory], submitter)
-        if (success) {
-            //push("/poi");
-        } else {
-            errorMessage = "POI creation not completed - some error occurred";
-        }
+        let ifile = files[0];
+        let reader = new FileReader();
+        const submitter = currentUser;
+        reader.onload = async function(e) {
+            image = e.target.result;
+            const success = await poiService.createPoi(name, location, latitude, longitude, selectedCategory, image, submitter);
+            if (success) {
+                push("/pois");
+            } else {
+                errorMessage = "POI creation not completed - some error occurred";
+            }
+        };
+        reader.readAsDataURL(ifile);
     };
 
+    //These two functions are for getting the Categories
     categories.forEach(category=>{
         let categorySelection = JSON.stringify(category);
-        items.push(
-            {value: category.county + ", " + category.province, label: category.county + ", " + category.province}
-            );
+        items.push({value: category, label: category.county + ", " + category.province});
     });
 
-    let selectedValue = {value: 'Select Category', label: 'Select Category'};
+    let selectedCategory;
     function handleSelect(event) {
-        console.log('Selected Category: ', event.detail);
+        console.log('Selected Category: ', event.detail, "and: ");
+        selectedCategory = event.detail.value;
     };
 
     async function createsPoi() {
@@ -83,11 +90,17 @@
                 </div>
             </div>
             <label style="color: black" class="uk-form-label" for="form-stacked-text">Select Category</label>
-            <Select {items} on:select={handleSelect}></Select>
+            <Select {items}
+                    bind:value={category}
+                    class="uk-select"
+                    type="text"
+                    id="form-stacked-text"
+                    name="category"
+                    on:select={handleSelect}/>
             <div class="uk-margin">
                 <label style="color: black" class="uk-form-label" for="form-stacked-text">Upload an Image of the Pub</label>
                 <div class="uk-form-controls">
-                    <input bind:value={image} class="uk-input" id="form-stacked-text" type="file" name="image" placeholder="Image"/>
+                    <input bind:files class="uk-input" id="form-stacked-file" type="file" name="image" placeholder="Image"/>
                 </div>
             </div>
         </div>

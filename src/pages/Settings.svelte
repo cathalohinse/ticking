@@ -2,10 +2,9 @@
   import CategoryForm from "../components/CategoryForm.svelte";
   import UserForm from "../components/UserForm.svelte";
   import clancy from "/src/assets/clancy.jpg";
-  import {navBar, mainBar, subTitle, title, user} from "../stores"
-  import {writable} from "svelte/store";
+  import {navBar, mainBar, subTitle, title, user} from "../stores";
   import {getContext, onMount} from "svelte";
-  import { PoiService } from "../services/poi-service"
+  import { PoiService } from "../services/poi-service";
 
   const poiService = getContext("PoiService");
 
@@ -13,6 +12,10 @@
   subTitle.set("Settings");
   navBar.set({
     bar: mainBar
+  });
+  user.set({
+    email: $user.email,
+    token: $user.token
   });
 
   onMount(async () => {
