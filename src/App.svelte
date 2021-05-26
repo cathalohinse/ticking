@@ -13,8 +13,8 @@
   import Router from "svelte-spa-router";
   import Navigator from "./components/Navigator.svelte";
 
-  setContext("PoiService", new PoiService("http://laptop-s80vbeoh:4000"));
-  //setContext("PoiService", new PoiService("http://https://ticking1.netlify.app/"));
+  //setContext("PoiService", new PoiService("http://laptop-s80vbeoh:4000"));
+  setContext("PoiService", new PoiService("http://https://ticking1.netlify.app/"));
 
   let routes = {
     "/" : Main,
