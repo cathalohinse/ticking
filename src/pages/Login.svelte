@@ -1,12 +1,15 @@
 <script>
-  import {title, subTitle, navBar, welcomeBar} from "../stores";
+  import {title, subTitle, navBar, welcomeBar, user} from "../stores";
   import LoginForm from "../components/LoginForm.svelte";
   import henchy2 from "/src/assets/henchy2.jpg";
   title.set("POI Services Inc.");
   subTitle.set("Please Log in");
-
   navBar.set({
     bar: welcomeBar
+  });
+  user.set({
+    email: $user.email,
+    token: $user.token
   });
 </script>
 

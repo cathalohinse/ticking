@@ -5,7 +5,8 @@
   import Login from "./pages/Login.svelte";
   import Settings from "./pages/Settings.svelte";
   import Pois from "./pages/PoiList.svelte";
-  import Poi from "./pages/Poi.svelte";
+  import CreatePoi from "./pages/CreatePoi.svelte";
+  import UpdatePoi from "./pages/UpdatePoi.svelte";
   import Category from "./pages/CategoryList.svelte";
   import User from "./pages/UserList.svelte";
   import Signup from "./pages/Signup.svelte";
@@ -20,8 +21,9 @@
     "/login": Login,
     "/settings": Settings,
     "/pois": Pois,
+    "/pois/:id": UpdatePoi,
     "/logout" : Main,
-    "/poi": Poi,
+    "/poi": CreatePoi,
     "/signup": Signup,
     "/categories": Category,
     "/users": User,

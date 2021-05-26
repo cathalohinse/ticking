@@ -1,6 +1,6 @@
 <script>
   import Title from "./Title.svelte";
-  import {navBar} from "../stores"
+  import {navBar} from "../stores";
 </script>
 
 

@@ -7,6 +7,7 @@
   let password = "";
   let errorMessage = "";
 
+  //Main Function
   async function login() {
     let success = await poiService.login(email, password);
     if (success) {

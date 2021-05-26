@@ -1,12 +1,16 @@
 <script lang="ts">
     import tavern from "/src/assets/tavern.jpg";
-    import {title, subTitle, navBar, welcomeBar} from "../stores"
-    import SignupForm from "../components/SignupForm.svelte"
+    import {title, subTitle, navBar, welcomeBar, user} from "../stores";
+    import SignupForm from "../components/SignupForm.svelte";
 
     title.set("POI Services Inc.");
     subTitle.set("Please Sign up");
     navBar.set({
         bar: welcomeBar
+    });
+    user.set({
+        email: $user.email,
+        token: $user.token
     });
 </script>
 
