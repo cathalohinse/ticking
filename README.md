@@ -44,5 +44,5 @@ This application incorporates the following:
 * [Heroku (Assignment 1)](https://aiteanna-speisiula.herokuapp.com/)
 * [Netlify (Assignment 2)](https://ticking1.netlify.app/)
 * [YouTube (Assignment 1)](https://www.youtube.com/watch?v=WgkLDYHRNuY)
-* [YouTube (Assignment 2)](https://www.youtube.com/watch?v=kFRh5HAhqeQ)
+* [YouTube (Assignment 2)](https://www.youtube.com/watch?v=lntrmNOL7WQ)
 * ['aiteanna-speisiula' github repository](https://github.com/cathalohinse/aiteanna-speisiula)
